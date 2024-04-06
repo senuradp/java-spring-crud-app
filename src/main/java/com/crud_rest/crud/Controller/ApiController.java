@@ -26,6 +26,10 @@ public class ApiController {
         return userRepo.findAll();
     }
 
-
+    @PostMapping(value = "/save-user")
+    public String saveUser(@RequestBody User user){
+        userRepo.save(user);
+        return "User saved ! ...";
+    }
 
 }
