@@ -40,4 +40,11 @@ public class ApiController {
         return "User updated ! ...";
     }
 
+    @DeleteMapping(value = "/delete-user/{id}")
+    public String deleteUser(@PathVariable long id){
+        User deleteUser = userRepo.findById(id).get();
+        userRepo.delete(deleteUser);
+        return "Deleted user with id " + id + " ! ...";
+    }
+
 }
