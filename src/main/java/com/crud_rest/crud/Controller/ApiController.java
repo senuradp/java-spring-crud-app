@@ -3,10 +3,7 @@ package com.crud_rest.crud.Controller;
 import com.crud_rest.crud.Models.User;
 import com.crud_rest.crud.Repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,17 @@ public class ApiController {
     public String saveUser(@RequestBody User user){
         userRepo.save(user);
         return "User saved ! ...";
+    }
+
+    @PutMapping(value = "/update-user/{id}")
+    public String updateUser(@PathVariable long id, @RequestBody User user){
+        User updatedUser = userRepo.findById(id).get();
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setAge(user.getAge());
+        updatedUser.setOccupation(user.getOccupation());
+        userRepo.save(updatedUser);
+        return "User updated ! ...";
     }
 
 }
